@@ -1,3 +1,9 @@
+<?php
+$conn = new mysqli("localhost", "root", "", "unifest_db");
+$r = $conn->query("SELECT status FROM registration_settings WHERE id = 1");
+$row = $r->fetch_assoc();
+$registrationStatus = $row['status'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -212,6 +218,7 @@
             background-color: rgba(231, 76, 60, 0.1);
             color: #E74C3C;
         }
+       
     </style>
 </head>
 <body>
@@ -698,7 +705,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Registration status management
-        let registrationOpen = true;
+        let registrationOpen = <?= $registrationStatus === 'open' ? 'true' : 'false'; ?>;
+
         
         // Update registration status display
         function updateRegistrationStatus() {
@@ -718,35 +726,28 @@
             }
         }
         
-        // Open registration
-        document.getElementById('openRegistration').addEventListener('click', function() {
-            registrationOpen = true;
-            updateRegistrationStatus();
-            showAlert('College registration is now OPEN', 'success');
-        });
-        
-        document.getElementById('openRegistrationFull').addEventListener('click', function() {
-            registrationOpen = true;
-            updateRegistrationStatus();
-            showAlert('College registration is now OPEN', 'success');
-        });
-        
-        // Close registration
-        document.getElementById('closeRegistration').addEventListener('click', function() {
-            if (confirm('Are you sure you want to close college registration? New colleges will not be able to register.')) {
-                registrationOpen = false;
-                updateRegistrationStatus();
-                showAlert('College registration is now CLOSED', 'warning');
-            }
-        });
-        
-        document.getElementById('closeRegistrationFull').addEventListener('click', function() {
-            if (confirm('Are you sure you want to close college registration? New colleges will not be able to register.')) {
-                registrationOpen = false;
-                updateRegistrationStatus();
-                showAlert('College registration is now CLOSED', 'warning');
-            }
-        });
+       // Open registration (DATABASE)
+document.getElementById('openRegistration').addEventListener('click', function() {
+    updateStatusDB('open');
+});
+
+document.getElementById('openRegistrationFull').addEventListener('click', function() {
+    updateStatusDB('open');
+});
+
+// Close registration (DATABASE)
+document.getElementById('closeRegistration').addEventListener('click', function() {
+    if (confirm('Are you sure you want to close college registration? New colleges will not be able to register.')) {
+        updateStatusDB('closed');
+    }
+});
+
+document.getElementById('closeRegistrationFull').addEventListener('click', function() {
+    if (confirm('Are you sure you want to close college registration? New colleges will not be able to register.')) {
+        updateStatusDB('closed');
+    }
+});
+
         
         // Tab navigation
         document.querySelectorAll('.nav-link').forEach(link => {
@@ -945,7 +946,37 @@
         }
         
         // Initialize registration status
+        function updateStatusDB(status) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "update_registration.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function () {
+        registrationOpen = status === 'open';
         updateRegistrationStatus();
+        showAlert("Registration " + status.toUpperCase(), "success");
+    };
+
+    xhr.send("status=" + status);
+}
+
+document.getElementById('openRegistration').onclick = () => updateStatusDB('open');
+document.getElementById('openRegistrationFull').onclick = () => updateStatusDB('open');
+
+document.getElementById('closeRegistration').onclick = () => {
+    if (confirm('Close registration?')) updateStatusDB('closed');
+};
+
+document.getElementById('closeRegistrationFull').onclick = () => {
+    if (confirm('Close registration?')) updateStatusDB('closed');
+};
+// Load status from database on page load
+updateRegistrationStatus();
+
+
+
+
+
     </script>
 </body>
 </html>
