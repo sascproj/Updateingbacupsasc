@@ -621,7 +621,7 @@
             }
         }
     </style>
-<body>
+
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
@@ -842,50 +842,68 @@
             </div>
         </div>
     </section>
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <h4><i class="fas fa-graduation-cap me-2"></i>UniFest 2026</h4>
-                    <p class="mt-3">Celebrating talent, creativity and excellence across universities. Join us for the biggest academic and cultural festival of the year.</p>
-                    <div class="mt-4">
-                        <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><a href="#home">Home</a></li>
-                        <li class="mb-2"><a href="#gallery">Gallery</a></li>
-                        <li class="mb-2"><a href="#results">Results</a></li>
-                        <li class="mb-2"><a href="#events">Events</a></li>
-                        <li><a href="#about">About UniFest</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <h5>Contact Us</h5>
-                    <ul class="list-unstyled mt-3">
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> University Avenue, Education City</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</li>
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@unifest2026.edu</li>
-                        <li><i class="fas fa-clock me-2"></i> Mon - Fri: 9:00 AM - 6:00 PM</li>
-                    </ul>
+            <div class="col-md-4 mb-4">
+                <h4><i class="fas fa-graduation-cap me-2"></i>UniFest 2026</h4>
+                <p class="mt-3">
+                    Celebrating talent, creativity and excellence across universities.
+                    Join us for the biggest academic and cultural festival of the year.
+                </p>
+                <div class="mt-4">
+                    <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
-            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
-            <div class="text-center">
-                <p>&copy; 2026 UniFest - University Festival Management System. All rights reserved.</p>
-            </div>bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
+
+            <div class="col-md-4 mb-4">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2"><a href="#home">Home</a></li>
+                    <li class="mb-2"><a href="#gallery">Gallery</a></li>
+                    <li class="mb-2"><a href="#results">Results</a></li>
+                    <li class="mb-2"><a href="#events">Events</a></li>
+                    <li><a href="#about">About UniFest</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        University Avenue, Education City
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        +1 (555) 123-4567
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        info@unifest2026.edu
+                    </li>
+                    <li>
+                        <i class="fas fa-clock me-2"></i>
+                        Mon - Fri: 9:00 AM - 6:00 PM
+                    </li>
+                </ul>
+            </div>
+
         </div>
-    </footer>
+
+        <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+
+        <div class="text-center">
+            <p>&copy; 2026 UniFest - University Festival Management System. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
 
    <div class="modal fade" id="superAdminModal" tabindex="-1">
     <div class="modal-dialog modal-sm">
@@ -1187,82 +1205,5 @@
     </div>
 
     
-</body>
-</html>
-
-<!-- LOGIN MODALS -->
-<div class="modal fade" id="superAdminModal" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-crown me-2"></i>Super Admin</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form action="checkin.php" method="POST">
-                    <input type="hidden" name="user_type" value="super_admin">
-                    <div class="mb-3">
-                        <label class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="collegeAdminModal" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-user-tie me-2"></i>College Admin</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form action="checkin.php" method="POST">
-                    <input type="hidden" name="user_type" value="college_admin">
-                    <div class="mb-3">
-                        <label class="form-label">Email address</label>
-                        <input type="email" class="form-control" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="studentModal" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-user-graduate me-2"></i>Student Login</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form action="checkin.php" method="POST">
-                    <input type="hidden" name="user_type" value="student">
-                    <div class="mb-3">
-                        <label class="form-label">Unique Student Code</label>
-                        <input type="text" class="form-control" name="student_code" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
