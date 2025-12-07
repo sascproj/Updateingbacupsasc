@@ -219,39 +219,100 @@ $registrationStatus = $row['status'];
             color: #E74C3C;
         }
       /* Fix for content appearing under sidebar */
+  /* FIX FOR SIDEBAR OVERLAP ISSUE */
 .sidebar {
-    z-index: 1000;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1050 !important;
+    position: fixed !important;
+    left: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .main-content {
+    margin-left: 250px !important;
     position: relative;
     z-index: 1;
+    min-height: 100vh;
+    background-color: var(--light-bg);
+    padding: 20px;
+    width: calc(100% - 250px);
+    overflow-x: hidden !important;
 }
 
-/* Ensure tables don't overflow */
-.table-responsive {
-    overflow-x: auto;
-    margin-bottom: 0;
-}
-
-/* Fix for tab content stacking */
+/* Force tabs to have proper display */
 .tab-content {
-    position: relative;
-    z-index: 1;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-/* Add some padding to table to ensure it doesn't go under sidebar */
-@media (min-width: 768px) {
+.tab-content.active {
+    display: block !important;
+    opacity: 1 !important;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Table specific fixes */
+#competitions .table-responsive {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background: white;
+    overflow-x: auto !important;
+}
+
+#competitions table {
+    min-width: 800px;
+    width: 100%;
+    margin: 0;
+    table-layout: fixed;
+}
+
+#competitions table th {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 10;
+}
+
+/* Ensure no overflow under sidebar */
+@media (max-width: 1200px) {
     .main-content {
-        min-height: 100vh;
+        width: calc(100% - 250px);
+        overflow-x: auto !important;
+    }
+    
+    #competitions table {
+        min-width: 700px;
     }
 }
 
-/* Optional: Add a subtle background to distinguish from sidebar */
-.tab-content.active {
-    background-color: var(--light-bg);
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        z-index: 1000;
+    }
+    
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    #competitions table {
+        min-width: 100%;
+    }
 }
+
        
     </style>
 </head>
@@ -1086,7 +1147,90 @@ updateRegistrationStatus();
 
 
 
+// ===== ADD THIS CODE AT THE END OF YOUR EXISTING SCRIPT =====
 
+// Enhanced tab switching with UI fixes
+document.querySelectorAll('.nav-link[data-tab]').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+            tab.style.display = 'none'; // Ensure hidden
+        });
+        
+        // Remove active class from all links
+        document.querySelectorAll('.nav-link').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Add active to clicked link
+        this.classList.add('active');
+        const tabId = this.getAttribute('data-tab');
+        const targetTab = document.getElementById(tabId);
+        
+        // Show target tab with proper display
+        if (targetTab) {
+            targetTab.classList.add('active');
+            targetTab.style.display = 'block';
+            
+            // Force browser reflow to fix rendering
+            void targetTab.offsetWidth;
+            
+            // Scroll to top of content area
+            document.querySelector('.main-content').scrollTop = 0;
+            
+            // Special fix for tables
+            if (tabId === 'competitions') {
+                const tableResponsive = targetTab.querySelector('.table-responsive');
+                if (tableResponsive) {
+                    setTimeout(() => {
+                        tableResponsive.style.overflowX = 'auto';
+                        tableResponsive.style.width = '100%';
+                    }, 50);
+                }
+            }
+        }
+    });
+});
+
+// Fix for quick action buttons
+document.querySelectorAll('button[data-tab]').forEach(button => {
+    button.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        const navLink = document.querySelector(`.nav-link[data-tab="${tabId}"]`);
+        
+        if (navLink) {
+            // Trigger click on the corresponding nav link
+            navLink.click();
+        }
+    });
+});
+
+// Initialize tab display on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide all tabs except active one
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        if (!tab.classList.contains('active')) {
+            tab.style.display = 'none';
+        } else {
+            tab.style.display = 'block';
+        }
+    });
+    
+    // Ensure competitions table is properly sized
+    const competitionsTab = document.getElementById('competitions');
+    if (competitionsTab) {
+        const table = competitionsTab.querySelector('table');
+        if (table) {
+            table.style.minWidth = '600px';
+            table.style.width = '100%';
+        }
+    }
+});
+
+// ===== END OF ADDED CODE =====
 
     </script>
 </body>
