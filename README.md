@@ -35,7 +35,7 @@ $registrationStatus = $row['status'];
     padding: 25px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     margin-bottom: 25px;
-}
+} 
 
 .tab-content.active {
     display: block;
